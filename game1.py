@@ -42,14 +42,20 @@ def atack_phase():
             while True:
                 df = int(input("Choose the country to DEFESE: "))
                 if df > 0 and df <= PlayersNumber and df != atk:
+                    battle_result(atk, df)
                     return False
                 print("CHOOSE INVALID, TRY AGAIN!\n") 
-
             return False
         print("CHOOSE INVALID, TRY AGAIN!\n") 
 
-def battle_result():
-    print("\n" + textTag_reg("BATTLE RESULT"))        
+def battle_result(atackerPos, defenderPos):
+    print("\n" + textTag_reg("BATTLE RESULT"))    
+    diceAtk = randint(1,6)
+    diceDef = randint(1,6)
+    print("Country attacker {} roll {}".format(db_reg[atackerPos-1]["country"], diceAtk))
+    print("Country defender {} roll {}".format(db_reg[defenderPos-1]["country"], diceDef))
+    
+
 
 #config-----------------------------------------------------------------------------
 PlayersNumber = 2
@@ -67,13 +73,12 @@ show_allPlayers()
 
 while True:
     atack_phase()   
-    battle_result()
     ver = input("Press ENTER to continue... (press 0 to exit)")
-    if ver == 0:
-        return False
+    # if ver == 0:
+    #     return False
 
 
-if clear_db == True: 
-    db_reg = []
+if clear_db == True:  #decidir onde deixar esse krl
+    db_reg = []       #decidir onde deixar esse krl
 #text-----------------------------------------------------------------------------
 
