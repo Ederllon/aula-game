@@ -1,3 +1,6 @@
+#import----------------------------------------------------------------------
+from random import randint
+
 #func text format-------------------------------------------------------------
 def textTag_reg(text):
     textTag = "--- {} ---".format(text)
@@ -28,9 +31,28 @@ def show_allPlayers():
         print(textTag_country("Dominated color: {} trooper" .format(str(db_reg[count]['color']))))
         print(textTag_country("Troopers: " + str(db_reg[count]['number'])))
 
+def atack_phase():
+    print("\n" + textTag_reg("ATACK PHASE"))
+    while True:
+        atk = int(input("Choose the country to ATACK: "))
+        if atk >= 1 and atk <= PlayersNumber:
+            while True:
+                df = int(input("Choose the country to DEFESE: "))
+                if df > 0 and df <= PlayersNumber and df != atk:
+                    return False
+                print("CHOOSE INVALID, TRY AGAIN!\n") 
+
+            return False
+        print("CHOOSE INVALID, TRY AGAIN!\n") 
+    
+    print("\n" + textTag_reg("BATTLE RESULT"))
+
 #config-----------------------------------------------------------------------------
-PlayersNumber = 5
+PlayersNumber = 2
+
 db_reg = []
+
+clear_db = False
 
 #main-----------------------------------------------------------------------------
 reg_init()
@@ -39,10 +61,11 @@ print(textTag_map())
 
 show_allPlayers()
 
+atack_phase()   
 
 
 
-
+if clear_db == True:
+    db_reg = []
 #text-----------------------------------------------------------------------------
-
 
