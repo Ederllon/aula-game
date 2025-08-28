@@ -34,7 +34,10 @@ def show_allPlayers():
 def atack_phase():
     print("\n" + textTag_reg("ATACK PHASE"))
     while True:
-        atk = int(input("Choose the country to ATACK: "))
+        atk = int(input("Choose the country to ATACK (press 0 to exit): "))
+        if atk == 0:
+            print("\n EXIT ATACK PHASE!")
+            return False
         if atk >= 1 and atk <= PlayersNumber:
             while True:
                 df = int(input("Choose the country to DEFESE: "))
@@ -44,8 +47,9 @@ def atack_phase():
 
             return False
         print("CHOOSE INVALID, TRY AGAIN!\n") 
-    
-    print("\n" + textTag_reg("BATTLE RESULT"))
+
+def battle_result():
+    print("\n" + textTag_reg("BATTLE RESULT"))        
 
 #config-----------------------------------------------------------------------------
 PlayersNumber = 2
@@ -61,11 +65,15 @@ print(textTag_map())
 
 show_allPlayers()
 
-atack_phase()   
+while True:
+    atack_phase()   
+    battle_result()
+    ver = input("Press ENTER to continue... (press 0 to exit)")
+    if ver == 0:
+        return False
 
 
-
-if clear_db == True:
+if clear_db == True: 
     db_reg = []
 #text-----------------------------------------------------------------------------
 
