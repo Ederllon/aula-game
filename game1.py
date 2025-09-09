@@ -34,6 +34,7 @@ def show_allPlayers():
 def atack_phase():
     print("\n" + textTag_reg("ATACK PHASE"))
     while True:
+
         atk = int(input("Choose the country to ATACK (press 0 to exit): "))
         if atk == 0:
             print("\n EXIT ATACK PHASE!")
@@ -41,7 +42,7 @@ def atack_phase():
         if atk >= 1 and atk <= PlayersNumber:
             while True:
                 df = int(input("Choose the country to DEFESE: "))
-                if df > 0 and df <= PlayersNumber and df != atk:
+                if df > 0 and df <= PlayersNumber and df != atk and db_reg[df-1]["color"] != db_reg[atk-1]["color"]:
                     battle_result(atk, df)
                     return False
                 print("CHOOSE INVALID, TRY AGAIN!\n") 
@@ -54,7 +55,17 @@ def battle_result(atackerPos, defenderPos):
     diceDef = randint(1,6)
     print("Country attacker {} roll {}".format(db_reg[atackerPos-1]["country"], diceAtk))
     print("Country defender {} roll {}".format(db_reg[defenderPos-1]["country"], diceDef))
-    
+    wl_action(atackerPos, defenderPos, diceAtk, diceDef)
+
+def wl_action(compAtk, compDf, diceA, diceD):
+    if diceA < diceD:
+        print(db_reg[compDf-1]["color"] + " color won the atack from "+ db_reg[compAtk-1]["color"] + " over of " + db_reg[compDf-1]["country"] + " territory")
+        db_reg[compAtk-1]["number"] = db_reg[compAtk-1]["number"]-1
+    if diceD < diceA:
+        print("The color " + db_reg[compAtk-1]["color"] + " color dominated " + db_reg[compDf-1]["country"])
+        db_reg[compDf-1]["color"] = db_reg[compAtk-1]["color"]
+    if diceD == diceA:
+        print("drawn!")
 
 
 #config-----------------------------------------------------------------------------
@@ -73,12 +84,11 @@ show_allPlayers()
 
 while True:
     atack_phase()   
-    ver = input("Press ENTER to continue... (press 0 to exit)")
-    # if ver == 0:
-    #     return False
+    ver = input("Press ENTER to continue... (press 0 to exit)") #n funciona ainda o 0
+       
+#post system-----------------------------------------------------------------------------
+if clear_db == True:   
+    db_reg = []
 
 
-if clear_db == True:  #decidir onde deixar esse krl
-    db_reg = []       #decidir onde deixar esse krl
-#text-----------------------------------------------------------------------------
-
+  
