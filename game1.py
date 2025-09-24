@@ -56,6 +56,9 @@ def battle_result(atackerPos, defenderPos):
     print("Country attacker {} roll {}".format(db_reg[atackerPos-1]["country"], diceAtk))
     print("Country defender {} roll {}".format(db_reg[defenderPos-1]["country"], diceDef))
     wl_action(atackerPos, defenderPos, diceAtk, diceDef)
+    # victory country + defender lose x trooper (reverse)
+    # if 0 troopers, the country has domined by country color
+
 
 def wl_action(compAtk, compDf, diceA, diceD):
     if diceA < diceD:
@@ -91,4 +94,7 @@ if clear_db == True:
     db_reg = []
 
 
-  
+    
+# criar um sistema q ler todos as cores e retorna falso pra pra o while e pai quando tiver 0 ou mesmas cores
+# if = trooper == 0. jogo finaliza
+
