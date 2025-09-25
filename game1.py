@@ -1,4 +1,6 @@
+# raise SystemExit
 #import----------------------------------------------------------------------
+
 from random import randint
 
 #func text format-------------------------------------------------------------
@@ -36,9 +38,13 @@ def atack_phase():
     while True:
 
         atk = int(input("Choose the country to ATACK (press 0 to exit): "))
+
+
         if atk == 0:
             print("\n EXIT ATACK PHASE!")
+            loop_confirm = False
             return False
+
         if atk >= 1 and atk <= PlayersNumber:
             while True:
                 df = int(input("Choose the country to DEFESE: "))
@@ -56,19 +62,30 @@ def battle_result(atackerPos, defenderPos):
     print("Country attacker {} roll {}".format(db_reg[atackerPos-1]["country"], diceAtk))
     print("Country defender {} roll {}".format(db_reg[defenderPos-1]["country"], diceDef))
     wl_action(atackerPos, defenderPos, diceAtk, diceDef)
-    # victory country + defender lose x trooper (reverse)
-    # if 0 troopers, the country has domined by country color
-
 
 def wl_action(compAtk, compDf, diceA, diceD):
     if diceA < diceD:
         print(db_reg[compDf-1]["color"] + " color won the atack from "+ db_reg[compAtk-1]["color"] + " over of " + db_reg[compDf-1]["country"] + " territory")
         db_reg[compAtk-1]["number"] = db_reg[compAtk-1]["number"]-1
     if diceD < diceA:
-        print("The color " + db_reg[compAtk-1]["color"] + " color dominated " + db_reg[compDf-1]["country"])
+        print("The color " + db_reg[compAtk-1]["color"] + " dominated " + db_reg[compDf-1]["country"])
         db_reg[compDf-1]["color"] = db_reg[compAtk-1]["color"]
     if diceD == diceA:
         print("drawn!")
+
+def winner_condition(max, db):
+    return_condition = True
+    c = max
+    while c > 0:
+        c = c - 1
+        if (db[c-1]["color"]) == db[c]["color"]:  
+            return_condition = True
+        else:
+            return_condition = False
+            break
+    if(return_condition == True):
+        print(db[0]["color"] + " Ganhou!")
+        raise SystemExit
 
 
 #config-----------------------------------------------------------------------------
@@ -83,11 +100,15 @@ reg_init()
 
 print(textTag_map())
 
-show_allPlayers()
+loop_confirm = True
 
-while True:
+while loop_confirm:
+    print("State: ")
+    show_allPlayers()
     atack_phase()   
-    ver = input("Press ENTER to continue... (press 0 to exit)") #n funciona ainda o 0
+    winner_condition(PlayersNumber, db_reg) #maybe, change another place to write this
+    ver = input("Press ENTER to continue... (press 0 to exit)") #0 not func
+    
        
 #post system-----------------------------------------------------------------------------
 if clear_db == True:   
