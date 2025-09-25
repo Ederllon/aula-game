@@ -115,7 +115,3 @@ if clear_db == True:
     db_reg = []
 
 
-    
-# criar um sistema q ler todos as cores e retorna falso pra pra o while e pai quando tiver 0 ou mesmas cores
-# if = trooper == 0. jogo finaliza
-
